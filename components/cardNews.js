@@ -1,21 +1,30 @@
 import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import dayjs from "dayjs";
+import "dayjs/locale/id";
+dayjs.locale("id");
 
-const CardNews = ({ data }) => {
+const CardNews = ({ data, description }) => {
+  const addDefaultSrc = e => {
+    e.target.src = "https://via.placeholder.com/150";
+  };
   return (
     <>
       <Card>
-        <Row className="show-grid">
-          <Col xs={6} md={4}>
-            <Card.Img variant="top" src={data.urlToImage} />
-          </Col>
-          <Col xs={12} md={8}>
-            <Card.Body>
-              <Card.Text>{data.title}</Card.Text>
-              <Card.Text>{data.description.substr(1, 50)} ...</Card.Text>
-            </Card.Body>
-          </Col>
-        </Row>
+        <Card>
+          <img
+            onError={addDefaultSrc}
+            className="card-img-top"
+            src={data.urlToImage}
+          />
+          <Card.Body>
+            <Card.Title>{data.title}</Card.Title>
+            <Card.Text>{description}</Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <small className="text-muted">{data.publishedAt}</small>
+          </Card.Footer>
+        </Card>
       </Card>
     </>
   );

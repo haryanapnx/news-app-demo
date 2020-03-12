@@ -8,9 +8,9 @@ import { getNewsLates } from "../stores/news_latest/action";
 import { getHeadline } from "../stores/headline/action";
 import { withRouter } from "next/router";
 
-const Index = ({ router }) => {
+const Category = ({ router }) => {
   const dispatch = useDispatch();
-  const [search,setSearch] = useState('')
+  const [search, setSearch] = useState("");
   const { data, loading } = useSelector(({ newsLatest }) => newsLatest);
   const { headline, loading_headline } = useSelector(
     ({ headline }) => headline
@@ -18,22 +18,25 @@ const Index = ({ router }) => {
 
   useEffect(() => {
     getApi();
+    setSearch('')
   }, [router]);
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value)
-  }
+  const handleSearch = e => {
+    setSearch(e.target.value);
+  };
 
   const getApi = async (e = {}) => {
-    
-    if (search==='') {
-      await dispatch(getHeadline({ country: "id", pageSize: 5 }));
+    if (search === "") {
+      await dispatch(
+        getHeadline({ category: router.query.slug, country: "id", pageSize: 5 })
+      );
     } else {
       e.preventDefault();
     }
-    await dispatch(getNewsLates({ country: "id", q: search }));
+    await dispatch(
+      getNewsLates({ category: router.query.slug, country: "id", q: search })
+    );
   };
-
   return (
     <>
       <Header
@@ -54,4 +57,4 @@ const Index = ({ router }) => {
     </>
   );
 };
-export default withRouter(Index);
+export default withRouter(Category);

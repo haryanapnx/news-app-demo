@@ -3,19 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.2",
+    "dayjs": "^1.8.22",
+    "express": "^4.17.1",
     "next": "9.3.0",
     "next-redux-wrapper": "^5.0.0",
+    "next-routes": "^1.4.2",
     "nprogress": "^0.2.0",
     "react": "16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "16.13.0",
+    "react-loading-skeleton": "^2.0.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",

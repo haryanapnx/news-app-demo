@@ -1,28 +1,23 @@
 import React, { useEffect } from "react";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { getNewsLates } from "../stores/news_latest/action";
+import { Container, Row, Col, FormControl, Button } from "react-bootstrap";
 import CardNews from "./cardNews";
 import { isEmpty } from "../utils/general";
+import Loader from "../components/loader";
 
-const Home = () => {
-  const dispatch = useDispatch();
-  const { data, loading } = useSelector(({ newsLatest }) => newsLatest);
-
-  useEffect(() => {
-    getApi();
-  }, [dispatch]);
-  const getApi = async () => {
-    await dispatch(getNewsLates({ country: "us" }));
-  };
-
+const Home = ({ data, loading }) => {
   return (
     <>
-      <div>{loading && "loading ...."}</div>
-          {!isEmpty(data) && data.map((item,i)=>(
-           <CardNews key={i} data={item} />
-          ))
-     }
+      <Container>
+        <Row>
+          {loading && <Loader />}
+          {!isEmpty(data) &&
+            data.map((item, i) => (
+              <Col key={i} xs={12} md={4} className="mb-3 mt-3">
+                <CardNews data={item} description={item.description} />
+              </Col>
+            ))}
+        </Row>
+      </Container>
     </>
   );
 };
